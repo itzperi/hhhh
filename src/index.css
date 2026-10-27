@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-carbon: #000000;
+  --color-paper-white: #ffffff;
+  --color-sky-wash: #dceeff;
+  --color-concrete-gray: #cccccc;
+  --color-soft-mist: #e9e9e9;
+  --color-electric-blue: #4da2ff;
+  --color-mint-pop: #55db9c;
+  --color-lavender: #e9ccff;
+  --color-ember: #fb4903;
+  --color-sunburst: #ffd731;
+  --color-voltage-violet: #5c4ade;
+
+  /* Typography */
+  --font-lateral: 'Antonio', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-aeonik-pro: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Border Radius */
+  --radius-2xl: 16px;
+  --radius-2xl-2: 20px;
+  --radius-3xl: 30px;
+  --radius-3xl-2: 40px;
+  --radius-full: 1440px;
+  --radius-full-2: 1500px;
+  --radius-full-3: 1600px;
+}
+
+:root {
+  --color-carbon: #000000;
+  --color-paper-white: #ffffff;
+  --color-sky-wash: #dceeff;
+  --color-concrete-gray: #cccccc;
+  --color-soft-mist: #e9e9e9;
+  --color-electric-blue: #4da2ff;
+  --color-mint-pop: #55db9c;
+  --color-lavender: #e9ccff;
+  --color-ember: #fb4903;
+  --color-sunburst: #ffd731;
+  --color-voltage-violet: #5c4ade;
+
+  --font-lateral: 'Antonio', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-aeonik-pro: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: var(--font-aeonik-pro);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Display Typography for Slush style - clean, bold, no overlapping */
+.font-lateral {
+  font-family: var(--font-lateral);
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.font-aeonik {
+  font-family: var(--font-aeonik-pro);
+}
+
+/* Hand-cut sticker border utility */
+.sticker-border {
+  border: 1px solid #000000;
+}
+
+.sticker-pill {
+  border: 1px solid #000000;
+  border-radius: 1600px;
+}
+
+.sticker-card {
+  border: 1px solid #000000;
+  border-radius: 24px;
+}
+
+/* Continuous marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom scrollbar matching Slush paper palette */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #dceeff;
+}
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 4px;
+}

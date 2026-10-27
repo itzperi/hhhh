@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        // 1. Intercept and suppress external chrome-extension errors from polluting the app
+        window.addEventListener('error', function(e) {
+          if (
+            (e.filename && e.filename.indexOf('chrome-extension://') !== -1) ||
+            (e.message && e.message.indexOf('fetch') !== -1 && e.message.indexOf('getter') !== -1)
+          ) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(e) {
+          var stack = (e.reason && (e.reason.stack || e.reason.message)) || '';
+          if (stack.indexOf('chrome-extension://') !== -1 || stack.indexOf('fetch') !== -1) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+
+        // 2. Make fetch writable on all levels (window, Window.prototype, etc.)
+        try {
+          var currentFetch = window.fetch;
+          var targets = [window];
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            targets.push(Window.prototype);
+          }
+          if (window.__proto__) {
+            targets.push(window.__proto__);
+          }
+
+          targets.forEach(function(target) {
+            try {
+              Object.defineProperty(target, 'fetch', {
+                get: function() {
+                  return currentFetch;
+                },
+                set: function(newFetch) {
+                  currentFetch = newFetch;
+                },
+                configurable: true,
+                enumerable: true
+              });
+            } catch (err) {}
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <title>Panasuna Chits - Modern Collective Wealth</title>
+    <meta name="description" content="Panasuna Chits Private Limited: Trusted chit fund savings and flexible borrowing schemes in Tamil Nadu since 1995. Registered under the Chit Funds Act 1982." />
+    <meta property="og:title" content="Panasuna Chits - Modern Collective Wealth" />
+    <meta property="og:description" content="Panasuna Chits Private Limited: Trusted chit fund savings and flexible borrowing schemes in Tamil Nadu since 1995. Registered under the Chit Funds Act 1982." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
